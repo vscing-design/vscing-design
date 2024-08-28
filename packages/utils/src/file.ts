@@ -1,4 +1,4 @@
-function getFileExtension(filename: string) {
+export function getFileExtension(filename: string) {
   if (!filename || filename.indexOf('.') === -1) {
     // 如果 filename 为空或不包含任何点号，则直接返回 undefined
     return undefined;
