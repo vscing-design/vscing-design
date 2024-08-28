@@ -26,3 +26,34 @@ export function getFileExtension(filename: string) {
 
   return mimeTypeMap[extension] || 'application/octet-stream';
 }
+
+// 文件转base64
+export function fileToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = function(e: any) {
+      resolve(e.target.result);
+    };
+    reader.onerror = function(e: any) {
+      reject(e.target.error);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// 判断是否图片类型
+export function checkImageType(file: File): boolean {
+  return file.type.startsWith('image/');
+};
+
+// accept数组转字符串
+export function acceptToString(accept: string[]): string {
+  return accept.map((item) => {
+    if (item.indexOf('/') > 0 || item.startsWith('.')) {
+      return item;
+    } else {
+      return `.${item}`;
+    }
+  })
+  .join(',');
+};
